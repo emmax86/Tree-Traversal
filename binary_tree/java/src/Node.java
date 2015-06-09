@@ -36,4 +36,8 @@ public class Node<T extends Comparable<T>> {
         return value;
     }
 
+    public boolean hasChildren() {
+        return left != null || right != null;
+    }
+
 }
