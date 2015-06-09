@@ -93,11 +93,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public void deleteMin(Node<T> rootNode) {
         if (rootNode == root && rootNode.getLeft() == null) {
             root = null;
+            size--;
         }
         else {
             Node<T> nextNode = rootNode.getLeft();
             if (nextNode.getLeft() == null) {
                 rootNode.setLeft(null);
+                size--;
             }
             else {
                 deleteMin(rootNode.getLeft());
@@ -114,11 +116,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public void deleteMax(Node<T> rootNode) {
         if (rootNode == root && rootNode.getRight() == null) {
             root = null;
+            size--;
         }
         else {
             Node<T> nextNode = rootNode.getRight();
             if (nextNode.getRight() == null) {
                 rootNode.setRight(null);
+                size--;
             }
             else {
                 deleteMax(rootNode.getRight());
