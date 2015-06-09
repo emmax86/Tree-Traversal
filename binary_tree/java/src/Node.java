@@ -18,6 +18,10 @@ public class Node<T extends Comparable<T>> {
         this.right = right;
     }
 
+    public void setValue(T value) {
+        this.value = value;
+    }
+
     public void setParent(Node<T> node) {
         this.parent = node;
     }
