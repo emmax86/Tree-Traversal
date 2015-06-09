@@ -81,7 +81,55 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void deleteValue(T value) {
+        if (root != null) {
+            deleteValue(root, value);
+        }
+    }
 
+    public void deleteValue(Node<T> rootNode, T value) {
+        if (rootNode == null) {
+            return;
+        }
+        else if (value.equals(rootNode.getValue())) {
+            if (rootNode == root && !rootNode.hasChildren()) {
+                root = null;
+                size--;
+            }
+            else if (rootNode.hasChildren()) {
+                Node<T> left = rootNode.getLeft();
+                Node<T> right = rootNode.getRight();
+                if (left == null && right != null) {
+                    if (rootNode == root) {
+                            rootNode = right;
+                    }
+                    else {
+                        rootNode.getParent().setRight(right);
+                        right.setParent(rootNode.getParent());
+                    }
+                }
+                else if (left != null && right == null) {
+                    if (rootNode == root) {
+                        rootNode = left;
+                    }
+                    else {
+                        rootNode.getParent().setLeft(left);
+                        left.setParent(rootNode.getParent());
+                    }
+                }
+                else if (left != null && right != null) {
+                    
+                }
+            }
+            else {
+                int comparison = value.compareTo(rootNode.getValue());
+                if (comparison < 0) {
+                    deleteValue(rootNode.getLeft(), value);
+                }
+                else if (comparison > 0) {
+                    deleteValue(rootNode.getRight(), value);
+                }
+            }
+        }
     }
 
     public void deleteMin() {
