@@ -62,6 +62,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
     }
 
+    public Node<T> getMinNode(Node<T> rootNode) {
+        if (rootNode.getLeft() == null) {
+            return rootNode;
+        }
+        else {
+            return getMinNode(rootNode.getLeft());
+        }
+    }
+
     public T getMax() {
         if (root == null) {
             return null;
@@ -77,6 +86,15 @@ public class BinarySearchTree<T extends Comparable<T>> {
         }
         else {
             return getMax(rootNode.getRight());
+        }
+    }
+
+    public Node<T> getMaxNode(Node<T> rootNode) {
+        if (rootNode.getRight() == null) {
+            return rootNode;
+        }
+        else {
+            return getMaxNode(rootNode.getRight());
         }
     }
 
@@ -98,26 +116,43 @@ public class BinarySearchTree<T extends Comparable<T>> {
             else if (rootNode.hasChildren()) {
                 Node<T> left = rootNode.getLeft();
                 Node<T> right = rootNode.getRight();
-                if (left == null && right != null) {
-                    if (rootNode == root) {
-                            rootNode = right;
+                if (left != null && right != null) {
+                    Node<T> toDelete = getMaxNode(left);
+                    T newValue = toDelete.getValue();
+                    if (toDelete == left) {
+                        rootNode.setValue(newValue);
+                        rootNode.setLeft(null);
+                        left.setParent(null);
                     }
                     else {
-                        rootNode.getParent().setRight(right);
-                        right.setParent(rootNode.getParent());
+                        rootNode.setValue(newValue);
+                        toDelete.getParent().setRight(null);
+                        toDelete.setParent(null);
                     }
                 }
                 else if (left != null && right == null) {
                     if (rootNode == root) {
-                        rootNode = left;
+                        root.setLeft(null);
+                        left.setParent(null);
+                        root = left;
                     }
                     else {
-                        rootNode.getParent().setLeft(left);
-                        left.setParent(rootNode.getParent());
+                        Node<T> rootParent = rootNode.getParent();
+                        rootParent.setLeft(left);
+                        left.setParent(rootParent);
                     }
                 }
-                else if (left != null && right != null) {
-                    
+                else if (left == null && right != null) {
+                    if (rootNode == root) {
+                        root.setLeft(null);
+                        left.setParent(null);
+                        root = left;
+                    }
+                    else {
+                        Node<T> rootParent = rootNode.getParent();
+                        rootParent.setRight(right);
+                        right.setParent(rootParent);
+                    }
                 }
             }
             else {
