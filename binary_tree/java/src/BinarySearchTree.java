@@ -108,71 +108,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void deleteValue(Node<T> rootNode, T value) {
-        if (rootNode != null) {
-            if (value.equals(rootNode.getValue())) {
-                if (rootNode == root && !rootNode.hasChildren()) {
-                    root = null;
-                    size--;
-                }
-                else if (rootNode.hasChildren()) {
-                    Node<T> left = rootNode.getLeft();
-                    Node<T> right = rootNode.getRight();
-                    if (left != null && right != null) {
-                        Node<T> toDelete = getMaxNode(left);
-                        T newValue = toDelete.getValue();
-                        if (toDelete == left) {
-                            rootNode.setValue(newValue);
-                            rootNode.setLeft(null);
-                            left.setParent(null);
-                            size--;
-                        }
-                        else {
-                            rootNode.setValue(newValue);
-                            toDelete.getParent().setRight(null);
-                            toDelete.setParent(null);
-                            size--;
-                        }
-                    }
-                    else if (left != null && right == null) {
-                        if (rootNode == root) {
-                            root.setLeft(null);
-                            left.setParent(null);
-                            root = left;
-                            size--;
-                        }
-                        else {
-                            Node<T> rootParent = rootNode.getParent();
-                            rootParent.setLeft(left);
-                            left.setParent(rootParent);
-                            size--;
-                        }
-                    }
-                    else if (left == null && right != null) {
-                        if (rootNode == root) {
-                            root.setLeft(null);
-                            right.setParent(null);
-                            root = right;
-                            size--;
-                        }
-                        else {
-                            Node<T> rootParent = rootNode.getParent();
-                            rootParent.setRight(right);
-                            right.setParent(rootParent);
-                            size--;
-                        }
-                    }
-                }
-                else {
-                    int comparison = value.compareTo(rootNode.getValue());
-                    if (comparison < 0) {
-                        deleteValue(rootNode.getLeft(), value);
-                    }
-                    else if (comparison > 0) {
-                        deleteValue(rootNode.getRight(), value);
-                    }
-                }
-            }
-        }
+
     }
 
     public void deleteMin() {
