@@ -17,6 +17,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
     public void insertNode(T value) {
         if (root == null) {
             root = new Node<T>(value);
+            size++;
         }
         else {
             insertNode(root, value);
