@@ -25,12 +25,13 @@ public class BinarySearchTree<T extends Comparable<T>> {
     }
 
     public void insertNode(Node<T> recursiveRoot, T value) throws NoSuchElementException {
-        if (recursiveRoot.getValue().compareTo(value) <= 0) {
+        if (value.compareTo(recursiveRoot.getValue()) <= 0) {
             if (recursiveRoot.getLeft() != null) {
                 insertNode(recursiveRoot.getLeft(), value);
             }
             else {
                 recursiveRoot.setLeft(new Node<T>(value));
+                recursiveRoot.getLeft().setParent(recursiveRoot);
                 size++;
             }
         }
@@ -40,6 +41,7 @@ public class BinarySearchTree<T extends Comparable<T>> {
             }
             else {
                 recursiveRoot.setRight(new Node<T>(value));
+                recursiveRoot.getRight().setParent(recursiveRoot);
                 size++;
             }
         }
